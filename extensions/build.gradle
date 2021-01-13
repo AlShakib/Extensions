@@ -41,7 +41,7 @@ ext {
     siteUrl = 'https://github.com/AlShakib/Extensions'
     gitUrl = 'https://github.com/AlShakib/Extensions.git'
 
-    libraryVersion = "$global_version_number"
+    libraryVersion = "$project_version_number"
 
     developerId = 'AlShakib'
     developerName = 'Al Shakib'
@@ -60,8 +60,8 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
 
-        versionCode rootProject.global_version_code
-        versionName "$global_version_number"
+        versionCode rootProject.project_version_code
+        versionName "$project_version_number"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -84,6 +84,8 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.navigation:navigation-runtime:2.3.2'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

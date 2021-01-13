@@ -37,8 +37,8 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
 
-        versionCode rootProject.global_version_code
-        versionName "$global_version_number"
+        versionCode rootProject.project_version_code
+        versionName "$project_version_number"
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }

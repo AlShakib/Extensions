@@ -26,5 +26,41 @@
 
 package dev.alshakib.ext;
 
+import android.app.Activity;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+
+import com.google.android.material.appbar.MaterialToolbar;
+
 public final class NavigationExt {
+    public static void setupActionBar(@NonNull Activity activity, @NonNull NavController navController,
+                                      @NonNull MaterialToolbar materialToolbar) {
+        AppCompatActivity appCompatActivity = (AppCompatActivity) activity;
+        appCompatActivity.setSupportActionBar(materialToolbar);
+        if (appCompatActivity.getSupportActionBar() != null &&
+                navController.getCurrentDestination() != null) {
+            appCompatActivity.getSupportActionBar()
+                    .setTitle(navController.getCurrentDestination().getLabel());
+        }
+    }
+
+    public static void safeNavigate(@NonNull NavController navController, @IdRes int currentDestinationId,
+                                    @NonNull NavDirections navDirections) {
+        if (navController.getCurrentDestination() != null &&
+                navController.getCurrentDestination().getId() == currentDestinationId) {
+            navController.navigate(navDirections);
+        }
+    }
+
+    public static void safeNavigateUp(@NonNull NavController navController,
+                                      @IdRes int currentDestinationId) {
+        if (navController.getCurrentDestination() != null &&
+                navController.getCurrentDestination().getId() == currentDestinationId) {
+            navController.navigateUp();
+        }
+    }
 }

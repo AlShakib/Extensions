@@ -27,9 +27,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        // Log Compat version
-        global_version_code = 1
-        global_version_number = '1.0.0-alpha1'
+        // Project versions
+        project_version_code = 1
+        project_version_number = '1.0.0-alpha1'
 
         // App SDK versions
         compileSdkVersion = 30
