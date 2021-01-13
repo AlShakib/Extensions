@@ -67,11 +67,13 @@ public final class StringExt {
         return Uri.parse(path);
     }
 
-    public static String leftTrim(String s) {
+    @NonNull
+    public static String leftTrim(@NonNull String s) {
         return Pattern.compile("^\\s+").matcher(s).replaceAll(EMPTY_STRING);
     }
 
-    public static String rightTrim(String s) {
+    @NonNull
+    public static String rightTrim(@NonNull String s) {
         return Pattern.compile("\\s+$").matcher(s).replaceAll(EMPTY_STRING);
     }
 
