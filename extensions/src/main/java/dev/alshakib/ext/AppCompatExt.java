@@ -31,9 +31,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
+import android.view.Window;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.FloatRange;
@@ -95,7 +100,7 @@ public final class AppCompatExt {
         }
     }
 
-    public static void applyDimToViewGroup(@NonNull ViewGroup parent, @FloatRange(from = 0.0F, to = 1.0F) float dim){
+    public static void applyDim(@NonNull ViewGroup parent, @FloatRange(from = 0.0F, to = 1.0F) float dim){
         Drawable drawable = new ColorDrawable(Color.BLACK);
         drawable.setBounds(0, 0, parent.getWidth(), parent.getHeight());
         drawable.setAlpha((int) (255.0F * dim));
@@ -107,10 +112,76 @@ public final class AppCompatExt {
         }
     }
 
-    public static void clearDimFromViewGroup(@NonNull ViewGroup parent) {
+    public static void clearDim(@NonNull ViewGroup parent) {
         ViewGroupOverlay overlay = parent.getOverlay();
         if (overlay != null) {
             overlay.clear();
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    public static void hideSystemUi(@NonNull Activity activity) {
+        Window window = activity.getWindow();
+        if (window != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                WindowManager.LayoutParams attr = window.getAttributes();
+                attr.layoutInDisplayCutoutMode = WindowManager
+                        .LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+                window.setAttributes(attr);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.setDecorFitsSystemWindows(false);
+                WindowInsetsController insetsController = window.getInsetsController();
+                if (insetsController != null) {
+                    insetsController.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+                    insetsController.hide(WindowInsets.Type.systemBars());
+                    insetsController.hide(WindowInsets.Type.displayCutout());
+                }
+            } else {
+                View decorView = window.getDecorView();
+                if (decorView != null) {
+                    int newUiOptions = decorView.getSystemUiVisibility();
+                    newUiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+                    newUiOptions |= View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                    newUiOptions |= View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+                    newUiOptions |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+                    newUiOptions |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+                    newUiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+                    decorView.setSystemUiVisibility(newUiOptions);
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    public static void showSystemUI(@NonNull Activity activity) {
+        Window window = activity.getWindow();
+        if (window != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                WindowManager.LayoutParams attr = window.getAttributes();
+                attr.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT;
+                window.setAttributes(attr);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.setDecorFitsSystemWindows(true);
+                WindowInsetsController insetsController = window.getInsetsController();
+                if (insetsController != null) {
+                    insetsController.show(WindowInsets.Type.systemBars());
+                    insetsController.show(WindowInsets.Type.displayCutout());
+                }
+            } else {
+                View decorView = window.getDecorView();
+                if (decorView != null) {
+                    int newUiOptions = decorView.getSystemUiVisibility();
+                    newUiOptions &= ~View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+                    newUiOptions &= ~View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                    newUiOptions &= ~View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+                    newUiOptions &= ~View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+                    newUiOptions &= ~View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+                    newUiOptions &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
+                    decorView.setSystemUiVisibility(newUiOptions);
+                }
+            }
         }
     }
 }
