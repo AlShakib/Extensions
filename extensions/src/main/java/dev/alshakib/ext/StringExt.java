@@ -28,7 +28,6 @@ package dev.alshakib.ext;
 
 import android.content.Context;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.util.Patterns;
 
 import androidx.annotation.NonNull;
@@ -40,17 +39,17 @@ public final class StringExt {
     public final static String EMPTY_STRING = "";
 
     public static boolean isValidEmail(final String email) {
-        if (email == null) {
+        if (email == null || email.isEmpty()) {
             return false;
         }
-        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     public static boolean isValidUrl(final String url) {
-        if (url == null) {
+        if (url == null || url.isEmpty()) {
             return false;
         }
-        return (!TextUtils.isEmpty(url) && Patterns.WEB_URL.matcher(url).matches());
+        return Patterns.WEB_URL.matcher(url).matches();
     }
 
     public static boolean isValidUrl(final Uri uri) {
@@ -60,8 +59,8 @@ public final class StringExt {
         return isValidUrl(uri.toString());
     }
 
-    public static Uri toUri(String path) {
-        if (path == null) {
+    public static Uri toUri(final String path) {
+        if (path == null || path.isEmpty()) {
             return Uri.EMPTY;
         }
         return Uri.parse(path);
