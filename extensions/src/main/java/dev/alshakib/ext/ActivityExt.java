@@ -28,28 +28,22 @@ package dev.alshakib.ext;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroupOverlay;
 import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.appbar.MaterialToolbar;
-
-public final class AppCompatExt {
-    public static void showInputMethod(@NonNull Activity activity) {
+public final class ActivityExt {
+    public static void showSoftInputMethod(@NonNull Activity activity) {
         View view = activity.getCurrentFocus();
         if (view == null) {
             view = new View(activity);
@@ -61,7 +55,7 @@ public final class AppCompatExt {
         }
     }
 
-    public static void hideInputMethod(@NonNull Activity activity) {
+    public static void hideSoftInputMethod(@NonNull Activity activity) {
         View view = activity.getCurrentFocus();
         if (view == null) {
             view = new View(activity);
@@ -74,12 +68,14 @@ public final class AppCompatExt {
         }
     }
 
-    public static void setMaterialToolbar(@NonNull Activity activity, @NonNull MaterialToolbar materialToolbar) {
+    public static void setToolbar(@NonNull Activity activity, @Nullable Toolbar toolbar) {
         AppCompatActivity appCompatActivity = (AppCompatActivity) activity;
-        appCompatActivity.setSupportActionBar(materialToolbar);
+        if (appCompatActivity != null) {
+            appCompatActivity.setSupportActionBar(toolbar);
+        }
     }
 
-    public static void setActionBarTitle(@NonNull Activity activity, @NonNull String title) {
+    public static void setActionBarTitle(@NonNull Activity activity, String title) {
         ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(title);
@@ -97,25 +93,6 @@ public final class AppCompatExt {
         ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
-        }
-    }
-
-    public static void applyDim(@NonNull ViewGroup parent, @FloatRange(from = 0.0F, to = 1.0F) float dim){
-        Drawable drawable = new ColorDrawable(Color.BLACK);
-        drawable.setBounds(0, 0, parent.getWidth(), parent.getHeight());
-        drawable.setAlpha((int) (255.0F * dim));
-
-        ViewGroupOverlay overlay = parent.getOverlay();
-        if (overlay != null) {
-            overlay.clear();
-            overlay.add(drawable);
-        }
-    }
-
-    public static void clearDim(@NonNull ViewGroup parent) {
-        ViewGroupOverlay overlay = parent.getOverlay();
-        if (overlay != null) {
-            overlay.clear();
         }
     }
 
