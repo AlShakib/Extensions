@@ -24,12 +24,11 @@
  * SOFTWARE.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
         // Project versions
         project_version_code = 1
-        project_version_number = '1.0.0-alpha2'
+        project_version_name = '1.0.0-alpha3'
 
         // App SDK versions
         compileSdkVersion = 30
