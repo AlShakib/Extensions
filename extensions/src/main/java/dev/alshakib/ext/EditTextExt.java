@@ -33,6 +33,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public final class EditTextExt {
+    public final static String EMPTY_STRING = "";
+
     @Nullable
     public static String getString(@NonNull EditText editText) {
         Editable editable = editText.getText();
@@ -40,6 +42,15 @@ public final class EditTextExt {
             return editable.toString();
         }
         return null;
+    }
+
+    @NonNull
+    public static String requireString(@NonNull EditText editText) {
+        Editable editable = editText.getText();
+        if (editable != null) {
+            return editable.toString();
+        }
+        return EMPTY_STRING;
     }
 
     public static boolean isEmpty(@NonNull EditText editText) {

@@ -70,9 +70,7 @@ public final class ActivityExt {
 
     public static void setToolbar(@NonNull Activity activity, @Nullable Toolbar toolbar) {
         AppCompatActivity appCompatActivity = (AppCompatActivity) activity;
-        if (appCompatActivity != null) {
-            appCompatActivity.setSupportActionBar(toolbar);
-        }
+        appCompatActivity.setSupportActionBar(toolbar);
     }
 
     public static void setActionBarTitle(@NonNull Activity activity, String title) {

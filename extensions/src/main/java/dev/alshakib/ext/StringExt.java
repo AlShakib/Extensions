@@ -103,20 +103,20 @@ public final class StringExt {
     }
 
     @NonNull
-    public static String toAlphaNumeric(@NonNull String s) {
+    public static String getAlphaNumeric(@NonNull String s) {
         return s.replaceAll("[^\\p{L}\\p{Nl}\\p{Nd}]", EMPTY_STRING);
     }
 
     @NonNull
-    public static String joinWithSeparator(@NonNull String first, @NonNull String second) {
+    public static String joinWithInterpunct(@NonNull String first, @NonNull String second) {
         return first + "•" + second;
     }
 
     @NonNull
-    public static String joinWithSeparator(@NonNull String first, @NonNull String second, @NonNull String... others) {
-        String s = joinWithSeparator(first, second);
+    public static String joinWithInterpunct(@NonNull String first, @NonNull String second, @NonNull String... others) {
+        String s = joinWithInterpunct(first, second);
         for (String arg : others) {
-            s += joinWithSeparator(s, arg);
+            s += joinWithInterpunct(s, arg);
         }
         return s;
     }
