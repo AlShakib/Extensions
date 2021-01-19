@@ -109,7 +109,7 @@ public final class StringExt {
 
     @NonNull
     public static String joinWithInterpunct(@NonNull String first, @NonNull String second) {
-        return first + "•" + second;
+        return first + " • " + second;
     }
 
     @NonNull
