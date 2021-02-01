@@ -35,6 +35,12 @@ import androidx.annotation.Nullable;
 public final class EditTextExt {
     public final static String EMPTY_STRING = "";
 
+    /**
+     * Get the text as nullable string from an EditText.
+     *
+     * @param editText Get the text from this EditText
+     * @return The text displaying on the EditText
+     */
     @Nullable
     public static String getString(@NonNull EditText editText) {
         Editable editable = editText.getText();
@@ -44,6 +50,12 @@ public final class EditTextExt {
         return null;
     }
 
+    /**
+     * Get the text as non nullable string from an EditText.
+     *
+     * @param editText Get the text from this EditText
+     * @return The text displaying on the EditText
+     */
     @NonNull
     public static String requireString(@NonNull EditText editText) {
         Editable editable = editText.getText();
@@ -53,6 +65,12 @@ public final class EditTextExt {
         return EMPTY_STRING;
     }
 
+    /**
+     * Check whether an EditText is empty or not.
+     *
+     * @param editText Check this EditText is empty or not
+     * @return true if the EditText is empty
+     */
     public static boolean isEmpty(@NonNull EditText editText) {
         Editable editable = editText.getText();
         return editable == null || editable.toString().isEmpty();

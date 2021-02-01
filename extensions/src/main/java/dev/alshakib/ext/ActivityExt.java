@@ -41,9 +41,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 
 public final class ActivityExt {
-    public static void showSoftInputMethod(@NonNull Activity activity) {
+    /**
+     * Show soft input area to the user.
+     *
+     * @param activity The currently focused activity, which would like to receive
+     * soft keyboard input.
+     */
+    public static void showSoftInput(@NonNull Activity activity) {
         View view = activity.getCurrentFocus();
         if (view == null) {
             view = new View(activity);
@@ -55,7 +63,12 @@ public final class ActivityExt {
         }
     }
 
-    public static void hideSoftInputMethod(@NonNull Activity activity) {
+    /**
+     * Hide soft input area from the window.
+     *
+     * @param activity The currently focused activity.
+     */
+    public static void hideSoftInput(@NonNull Activity activity) {
         View view = activity.getCurrentFocus();
         if (view == null) {
             view = new View(activity);
@@ -68,11 +81,44 @@ public final class ActivityExt {
         }
     }
 
-    public static void setToolbar(@NonNull Activity activity, @Nullable Toolbar toolbar) {
+    /**
+     * Set a {@link android.widget.Toolbar Toolbar} to act as the
+     * {@link androidx.appcompat.app.ActionBar} for this Activity window.
+     *
+     * @param activity Activity to set a action bar
+     * @param toolbar Toolbar to set as the Activity's action bar, or {@code null} to clear it
+     */
+    public static void setActionBar(@NonNull Activity activity, @Nullable Toolbar toolbar) {
         AppCompatActivity appCompatActivity = (AppCompatActivity) activity;
         appCompatActivity.setSupportActionBar(toolbar);
     }
 
+    /**
+     * Set a {@link android.widget.Toolbar Toolbar} to act as the
+     * {@link androidx.appcompat.app.ActionBar} for this Activity window and
+     * set action bar title from current destination label.
+     *
+     * @param activity Activity to set a action bar
+     * @param toolbar Toolbar to set as the Activity's action bar
+     * @param navController NavController to get the label from current destination
+     */
+    public static void setActionBar(@NonNull Activity activity, @NonNull Toolbar toolbar,
+                                    @NonNull NavController navController) {
+        AppCompatActivity appCompatActivity = (AppCompatActivity) activity;
+        appCompatActivity.setSupportActionBar(toolbar);
+        ActionBar actionBar = appCompatActivity.getSupportActionBar();
+        NavDestination currentDestination = navController.getCurrentDestination();
+        if (actionBar != null && currentDestination != null) {
+            actionBar.setTitle(currentDestination.getLabel());
+        }
+    }
+
+    /**
+     * Set the action bar's title.
+     *
+     * @param activity Activity where the action bar is set
+     * @param title Title to set
+     */
     public static void setActionBarTitle(@NonNull Activity activity, String title) {
         ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
         if (actionBar != null) {
@@ -80,6 +126,28 @@ public final class ActivityExt {
         }
     }
 
+    /**
+     * Set whether home should be displayed as an "up" affordance.
+     * Set this to true if selecting "home" returns up by a single level in your UI
+     * rather than back to the top level or front page.
+     *
+     * @param activity Activity where the action bar is set
+     * @param enable true to show the user that selecting home will return one
+     *                level up rather than to the top level of the app.
+     */
+    public static void setHomeAsUpButton(@NonNull Activity activity, boolean enable) {
+        if (enable) {
+            enableUpButton(activity);
+        } else {
+            disableUpButton(activity);
+        }
+    }
+
+    /**
+     * Show the up button on the action bar
+     *
+     * @param activity Activity where the action bar is set
+     */
     public static void enableUpButton(@NonNull Activity activity) {
         ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
         if (actionBar != null) {
@@ -87,6 +155,11 @@ public final class ActivityExt {
         }
     }
 
+    /**
+     * Hide the up button from the action bar
+     *
+     * @param activity Activity where the action bar is set
+     */
     public static void disableUpButton(@NonNull Activity activity) {
         ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
         if (actionBar != null) {
@@ -94,6 +167,12 @@ public final class ActivityExt {
         }
     }
 
+    /**
+     * Hide navigation bar and status bar from the window and
+     * show the activity as full screen.
+     *
+     * @param activity This activity will show as full screen
+     */
     @SuppressWarnings("deprecation")
     public static void hideSystemUi(@NonNull Activity activity) {
         Window window = activity.getWindow();
@@ -128,6 +207,12 @@ public final class ActivityExt {
         }
     }
 
+    /**
+     * Show navigation bar and status bar on the window and
+     * restore the activity from full screen.
+     *
+     * @param activity This activity will restore from full screen
+     */
     @SuppressWarnings("deprecation")
     public static void showSystemUI(@NonNull Activity activity) {
         Window window = activity.getWindow();

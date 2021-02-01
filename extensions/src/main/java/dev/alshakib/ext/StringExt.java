@@ -28,6 +28,7 @@ package dev.alshakib.ext;
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Patterns;
 
 import androidx.annotation.NonNull;
@@ -38,20 +39,32 @@ import java.util.regex.Pattern;
 public final class StringExt {
     public final static String EMPTY_STRING = "";
 
+    /**
+     * Check whether the email address is valid or not.
+     *
+     * @param email Email address to check
+     * @return true if the email address is valid
+     */
     public static boolean isValidEmail(final String email) {
-        if (email == null || email.isEmpty()) {
-            return false;
-        }
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    /**
+     * Check whether the web URL is valid or not.
+     *
+     * @param url Web URL to check
+     * @return true if the web URL is valid
+     */
     public static boolean isValidUrl(final String url) {
-        if (url == null || url.isEmpty()) {
-            return false;
-        }
-        return Patterns.WEB_URL.matcher(url).matches();
+        return !TextUtils.isEmpty(url) && Patterns.WEB_URL.matcher(url).matches();
     }
 
+    /**
+     * Check whether the web URL is valid or not.
+     *
+     * @param uri Web URL to check
+     * @return true if the web URL is valid
+     */
     public static boolean isValidUrl(final Uri uri) {
         if (uri == null) {
             return false;
@@ -59,27 +72,56 @@ public final class StringExt {
         return isValidUrl(uri.toString());
     }
 
-    public static Uri toUri(final String path) {
-        if (path == null || path.isEmpty()) {
-            return Uri.EMPTY;
-        }
-        return Uri.parse(path);
+    /**
+     * Convert string to URI
+     *
+     * @param s String to convert to URI
+     * @return A URI from string
+     */
+    public static Uri toUri(final String s) {
+        return TextUtils.isEmpty(s) ? Uri.EMPTY : Uri.parse(s);
     }
 
+    /**
+     * Trim spaces on the left of a string.
+     *
+     * @param s String to trim
+     * @return The final string
+     */
     @NonNull
     public static String leftTrim(@NonNull String s) {
         return Pattern.compile("^\\s+").matcher(s).replaceAll(EMPTY_STRING);
     }
 
+    /**
+     * Trim spaces on the right of a string.
+     *
+     * @param s String to trim
+     * @return The final string
+     */
     @NonNull
     public static String rightTrim(@NonNull String s) {
         return Pattern.compile("\\s+$").matcher(s).replaceAll(EMPTY_STRING);
     }
 
+    /**
+     * Get a nullable string from a string resource id.
+     *
+     * @param context Context to get resource
+     * @param res String resource id
+     * @return A string value
+     */
     public static String getString(@NonNull Context context, @StringRes int res) {
         return context.getResources().getString(res);
     }
 
+    /**
+     * Get a non nullable string from a string resource id.
+     *
+     * @param context Context to get resource
+     * @param res String resource id
+     * @return A non nullable string value
+     */
     @NonNull
     public static String requireString(@NonNull Context context, @StringRes int res) {
         String s = getString(context, res);
@@ -89,10 +131,26 @@ public final class StringExt {
         return EMPTY_STRING;
     }
 
+    /**
+     * Get a nullable string from string resource id with arguments
+     *
+     * @param context Context to get resources
+     * @param res String resource id
+     * @param args Arguments to pass
+     * @return A string value
+     */
     public static String getString(@NonNull Context context, @StringRes int res, @NonNull Object... args) {
         return context.getResources().getString(res, args);
     }
 
+    /**
+     * Get a non nullable string from a string resource id with arguments
+     *
+     * @param context Context to get resources
+     * @param res String resource id
+     * @param args Arguments to pass
+     * @return A string value
+     */
     @NonNull
     public static String requireString(@NonNull Context context, @StringRes int res, @NonNull Object... args) {
         String s = getString(context, res, args);
@@ -102,16 +160,37 @@ public final class StringExt {
         return EMPTY_STRING;
     }
 
+    /**
+     * Remove non alphanumeric characters from a string
+     *
+     * @param s String to process
+     * @return String value
+     */
     @NonNull
     public static String getAlphaNumeric(@NonNull String s) {
         return s.replaceAll("[^\\p{L}\\p{Nl}\\p{Nd}]", EMPTY_STRING);
     }
 
+    /**
+     * Join two strings with a interpunct
+     *
+     * @param first First string
+     * @param second Second string
+     * @return Final string
+     */
     @NonNull
     public static String joinWithInterpunct(@NonNull String first, @NonNull String second) {
         return first + " • " + second;
     }
 
+    /**
+     * Join two or more strings with interpunct
+     *
+     * @param first First string
+     * @param second Second string
+     * @param others A string array to join each value one after another
+     * @return Final string
+     */
     @NonNull
     public static String joinWithInterpunct(@NonNull String first, @NonNull String second, @NonNull String... others) {
         String s = joinWithInterpunct(first, second);

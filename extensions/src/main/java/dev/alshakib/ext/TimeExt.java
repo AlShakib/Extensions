@@ -30,8 +30,8 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public final class TimeExt {
     public final static int PLURAL_RES_SECONDS = 1;
@@ -40,6 +40,12 @@ public final class TimeExt {
     public final static int PLURAL_RES_DAYS = 4;
     public final static int PLURAL_RES_WEEKS = 5;
 
+    /**
+     * Get mm:ss or hh:mm:ss time from milliseconds.
+     *
+     * @param milliseconds Milliseconds to format
+     * @return A non nullable string of mm:ss or hh:mm:ss
+     */
     @NonNull
     public static String getTime(long milliseconds) {
         long minutes = (milliseconds / 1000) / 60;
@@ -53,6 +59,13 @@ public final class TimeExt {
         }
     }
 
+    /**
+     * Get readable time from milliseconds like 5 minutes or 7 hours etc.
+     *
+     * @param context Context to get plurals resources
+     * @param milliseconds Milliseconds to process
+     * @return A non nullable string of readable time
+     */
     @NonNull
     public static String getReadableTime(@NonNull Context context, long milliseconds) {
         int seconds = (int) milliseconds / 1000;
@@ -80,8 +93,22 @@ public final class TimeExt {
                 .getQuantityString(R.plurals.time_in_weeks, weeks, weeks, weeks, weeks, weeks, weeks);
     }
 
+    /**
+     * Get readable time from milliseconds like 5 minutes or 7 hours etc.
+     *
+     * @param context Context to get plurals resources
+     * @param stringResMap Map of plural resource ids.
+     *                     Use TimeExt.PLURAL_RES_SECONDS, TimeExt.PLURAL_RES_MINUTES,
+     *                     TimeExt.PLURAL_RES_HOURS, TimeExt.PLURAL_RES_DAYS and TimeExt.PLURAL_RES_WEEKS
+     *                     to create a Map.
+     * @param milliseconds Milliseconds to process
+     * @return A non nullable string of readable time
+     */
     @NonNull
-    public static String getReadableTime(@NonNull Context context, @NonNull HashMap<Integer, Integer> stringResMap, long milliseconds) {
+    public static String getReadableTime(@NonNull Context context, @NonNull Map<Integer, Integer> stringResMap, long milliseconds) {
+        if (stringResMap.size() != 5) {
+            throw new IllegalArgumentException("Invalid stringResMap size. Must be 5.");
+        }
         int seconds = (int) milliseconds / 1000;
         if (seconds < 60) {
             Integer res = stringResMap.get(PLURAL_RES_SECONDS);

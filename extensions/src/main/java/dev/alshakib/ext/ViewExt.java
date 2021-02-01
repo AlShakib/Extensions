@@ -36,22 +36,42 @@ import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 
 public final class ViewExt {
-    public static void applyDim(@NonNull ViewGroup parent, @FloatRange(from = 0.0F, to = 1.0F) float dim){
+    /**
+     * Apply black dim overlay to a ViewGroup
+     *
+     * @param viewGroup ViewGroup to apply black dim overlay
+     * @param dim Dim value. (0.0 - 1.0)
+     */
+    public static void applyDim(@NonNull ViewGroup viewGroup, @FloatRange(from = 0.0F, to = 1.0F) float dim){
         Drawable drawable = new ColorDrawable(Color.BLACK);
-        drawable.setBounds(0, 0, parent.getWidth(), parent.getHeight());
+        drawable.setBounds(0, 0, viewGroup.getWidth(), viewGroup.getHeight());
         drawable.setAlpha((int) (255.0F * dim));
 
-        ViewGroupOverlay overlay = parent.getOverlay();
+        ViewGroupOverlay overlay = viewGroup.getOverlay();
         if (overlay != null) {
             overlay.clear();
             overlay.add(drawable);
         }
     }
 
-    public static void clearDim(@NonNull ViewGroup parent) {
-        ViewGroupOverlay overlay = parent.getOverlay();
+    /**
+     * Clear overlay from a ViewGroup
+     *
+     * @param viewGroup ViewGroup to clear overlay
+     */
+    public static void clearOverlay(@NonNull ViewGroup viewGroup) {
+        ViewGroupOverlay overlay = viewGroup.getOverlay();
         if (overlay != null) {
             overlay.clear();
         }
+    }
+
+    /**
+     * Clear black dim overlay from a ViewGroup
+     *
+     * @param viewGroup ViewGroup to clear black dim overlay
+     */
+    public static void clearDim(@NonNull ViewGroup viewGroup) {
+        clearOverlay(viewGroup);
     }
 }
