@@ -91,6 +91,5 @@ dependencies {
 }
 
 if (project.rootProject.file('local.properties').exists()) {
-    apply from: 'install.gradle'
     apply from: 'bintray.gradle'
 }
