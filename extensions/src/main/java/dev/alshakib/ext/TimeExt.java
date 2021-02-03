@@ -97,7 +97,7 @@ public final class TimeExt {
      * Get readable time from milliseconds like 5 minutes or 7 hours etc.
      *
      * @param context Context to get plurals resources
-     * @param stringResMap Map of plural resource ids.
+     * @param resMap Map of plural resource ids.
      *                     Use TimeExt.PLURAL_RES_SECONDS, TimeExt.PLURAL_RES_MINUTES,
      *                     TimeExt.PLURAL_RES_HOURS, TimeExt.PLURAL_RES_DAYS and TimeExt.PLURAL_RES_WEEKS
      *                     to create a Map.
@@ -105,13 +105,13 @@ public final class TimeExt {
      * @return A non nullable string of readable time
      */
     @NonNull
-    public static String getReadableTime(@NonNull Context context, @NonNull Map<Integer, Integer> stringResMap, long milliseconds) {
-        if (stringResMap.size() != 5) {
-            throw new IllegalArgumentException("Invalid stringResMap size. Must be 5.");
+    public static String getReadableTime(@NonNull Context context, @NonNull Map<Integer, Integer> resMap, long milliseconds) {
+        if (resMap.size() != 5) {
+            throw new IllegalArgumentException("Invalid resMap size. Must be 5.");
         }
         int seconds = (int) milliseconds / 1000;
         if (seconds < 60) {
-            Integer res = stringResMap.get(PLURAL_RES_SECONDS);
+            Integer res = resMap.get(PLURAL_RES_SECONDS);
             if (res == null) {
                 res = R.plurals.time_in_seconds;
             }
@@ -120,7 +120,7 @@ public final class TimeExt {
         }
         int minutes = (int) (milliseconds / 1000) / 60;
         if (minutes < 60) {
-            Integer res = stringResMap.get(PLURAL_RES_MINUTES);
+            Integer res = resMap.get(PLURAL_RES_MINUTES);
             if (res == null) {
                 res = R.plurals.time_in_minutes;
             }
@@ -129,7 +129,7 @@ public final class TimeExt {
         }
         int hours = minutes / 60;
         if (hours < 24){
-            Integer res = stringResMap.get(PLURAL_RES_HOURS);
+            Integer res = resMap.get(PLURAL_RES_HOURS);
             if (res == null) {
                 res = R.plurals.time_in_hours;
             }
@@ -138,7 +138,7 @@ public final class TimeExt {
         }
         int days = hours / 24;
         if (days < 7) {
-            Integer res = stringResMap.get(PLURAL_RES_DAYS);
+            Integer res = resMap.get(PLURAL_RES_DAYS);
             if (res == null) {
                 res = R.plurals.time_in_days;
             }
@@ -146,7 +146,7 @@ public final class TimeExt {
                     .getQuantityString(res, days, days, days, days, days, days);
         }
         int weeks = days / 7;
-        Integer res = stringResMap.get(PLURAL_RES_WEEKS);
+        Integer res = resMap.get(PLURAL_RES_WEEKS);
         if (res == null) {
             res = R.plurals.time_in_weeks;
         }

@@ -116,7 +116,7 @@ public final class ActivityExt {
     /**
      * Set the action bar's title.
      *
-     * @param activity Activity where the action bar is set
+     * @param activity Activity, where the action bar is set
      * @param title Title to set
      */
     public static void setActionBarTitle(@NonNull Activity activity, String title) {
@@ -144,9 +144,9 @@ public final class ActivityExt {
     }
 
     /**
-     * Show the up button on the action bar
+     * Show the up button on the action bar.
      *
-     * @param activity Activity where the action bar is set
+     * @param activity Activity, where the action bar is set
      */
     public static void enableUpButton(@NonNull Activity activity) {
         ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
@@ -156,9 +156,9 @@ public final class ActivityExt {
     }
 
     /**
-     * Hide the up button from the action bar
+     * Hide the up button from the action bar.
      *
-     * @param activity Activity where the action bar is set
+     * @param activity Activity, where the action bar is set
      */
     public static void disableUpButton(@NonNull Activity activity) {
         ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
@@ -214,7 +214,7 @@ public final class ActivityExt {
      * @param activity This activity will restore from full screen
      */
     @SuppressWarnings("deprecation")
-    public static void showSystemUI(@NonNull Activity activity) {
+    public static void showSystemUi(@NonNull Activity activity) {
         Window window = activity.getWindow();
         if (window != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

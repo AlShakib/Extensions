@@ -55,7 +55,7 @@ public final class StringExt {
      * @param url Web URL to check
      * @return true if the web URL is valid
      */
-    public static boolean isValidUrl(final String url) {
+    public static boolean isValidWebUrl(final String url) {
         return !TextUtils.isEmpty(url) && Patterns.WEB_URL.matcher(url).matches();
     }
 
@@ -65,11 +65,11 @@ public final class StringExt {
      * @param uri Web URL to check
      * @return true if the web URL is valid
      */
-    public static boolean isValidUrl(final Uri uri) {
+    public static boolean isValidWebUrl(final Uri uri) {
         if (uri == null) {
             return false;
         }
-        return isValidUrl(uri.toString());
+        return isValidWebUrl(uri.toString());
     }
 
     /**
@@ -132,7 +132,7 @@ public final class StringExt {
     }
 
     /**
-     * Get a nullable string from string resource id with arguments
+     * Get a nullable string from string resource id with arguments.
      *
      * @param context Context to get resources
      * @param res String resource id
@@ -144,7 +144,7 @@ public final class StringExt {
     }
 
     /**
-     * Get a non nullable string from a string resource id with arguments
+     * Get a non nullable string from a string resource id with arguments.
      *
      * @param context Context to get resources
      * @param res String resource id
@@ -161,10 +161,10 @@ public final class StringExt {
     }
 
     /**
-     * Remove non alphanumeric characters from a string
+     * Remove non alphanumeric characters from a string.
      *
      * @param s String to process
-     * @return String value
+     * @return An alphanumeric string value
      */
     @NonNull
     public static String getAlphaNumeric(@NonNull String s) {
@@ -172,7 +172,7 @@ public final class StringExt {
     }
 
     /**
-     * Join two strings with a interpunct
+     * Join two strings with a interpunct.
      *
      * @param first First string
      * @param second Second string
@@ -184,7 +184,7 @@ public final class StringExt {
     }
 
     /**
-     * Join two or more strings with interpunct
+     * Join two or more strings with interpunct.
      *
      * @param first First string
      * @param second Second string
