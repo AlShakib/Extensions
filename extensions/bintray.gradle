@@ -27,7 +27,31 @@
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
-version = libraryVersion
+ext {
+    // Developer information
+    developerId = 'AlShakib'
+    developerName = 'Al Shakib'
+    developerEmail = 'shakib@alshakib.dev'
+
+    // Library information
+    libraryName = 'Extensions'
+    libraryDescription = 'Extensions is a collection of helpers for accessing features in Android Application.'
+    libraryVersion = "$project_version_name"
+    libraryWebsiteUrl = 'https://github.com/AlShakib/Extensions'
+    libraryIssueTrackerUrl = 'https://github.com/AlShakib/Extensions/issues'
+    libraryVcsUrl = 'https://github.com/AlShakib/Extensions.git'
+    libraryLicenseName = 'MIT License'
+    libraryLicenseUrl = 'https://github.com/AlShakib/Extensions/blob/main/LICENSE'
+
+    // Bintray information
+    bintrayRepo = 'Extensions'
+    bintrayPackageName = 'dev.alshakib.ext'
+    bintrayArtifactId = 'ext'
+    bintrayLicenses = ['MIT']
+    bintrayLabels = ['android', 'library', 'extension']
+    bintrayPublish = true
+    bintrayPublicDownloadNumbers = false
+}
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -57,10 +81,10 @@ artifacts {
 }
 
 // Bintray
+version = libraryVersion
+group = bintrayPackageName // Maven Group ID for the artifact
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-group = publishedGroupId // Maven Group ID for the artifact
 
 install {
     repositories.mavenInstaller {
@@ -68,20 +92,16 @@ install {
         pom {
             project {
                 packaging 'aar'
-
-                groupId publishedGroupId
-                artifactId artifact
-
-                // Add your description here
+                groupId bintrayPackageName
+                artifactId bintrayArtifactId
                 name libraryName
                 description libraryDescription
-                url siteUrl
+                url libraryWebsiteUrl
 
-                // Set your license
                 licenses {
                     license {
-                        name licenseName
-                        url licenseUrl
+                        name libraryLicenseName
+                        url libraryLicenseUrl
                     }
                 }
                 developers {
@@ -92,9 +112,9 @@ install {
                     }
                 }
                 scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url gitUrl
+                    connection libraryVcsUrl
+                    developerConnection libraryVcsUrl
+                    url libraryVcsUrl
                 }
             }
         }
@@ -108,15 +128,18 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = bintrayRepo
-        name = bintrayName
+        name = bintrayPackageName
         desc = libraryDescription
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = allLicenses
-        publish = true
-        publicDownloadNumbers = false
+        websiteUrl = libraryWebsiteUrl
+        issueTrackerUrl = libraryIssueTrackerUrl
+        vcsUrl = libraryVcsUrl
+        licenses = bintrayLicenses
+        labels = bintrayLabels
+        publish = bintrayPublish
+        publicDownloadNumbers = bintrayPublicDownloadNumbers
         version {
-            desc = libraryDescription
+            name = libraryVersion
+            released  = new Date()
             gpg {
                 sign = true // Determines whether to GPG sign the files. The default is false
                 passphrase = properties.getProperty("bintray.gpg.password")

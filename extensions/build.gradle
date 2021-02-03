@@ -26,30 +26,6 @@
 
 apply plugin: 'com.android.library'
 
-ext {
-    bintrayRepo = "Extensions"
-    bintrayName = "dev.alshakib.ext"
-
-    publishedGroupId = 'dev.alshakib.ext'
-    artifact = 'ext'
-    libraryName = 'ext'
-
-    libraryDescription = 'Extensions is a collection of helpers for accessing features in Android Application.'
-
-    siteUrl = 'https://github.com/AlShakib/Extensions'
-    gitUrl = 'https://github.com/AlShakib/Extensions.git'
-
-    libraryVersion = "$project_version_name"
-
-    developerId = 'AlShakib'
-    developerName = 'Al Shakib'
-    developerEmail = 'shakib@alshakib.dev'
-
-    licenseName = 'MIT License'
-    licenseUrl = 'https://github.com/AlShakib/Extensions/blob/main/LICENSE'
-    allLicenses = ["MIT"]
-}
-
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
