@@ -27,8 +27,8 @@
 buildscript {
     ext {
         // Project versions
-        project_version_code = 3
-        project_version_name = '1.1.0'
+        project_version_code = 1
+        project_version_name = '1.0.0-rc1'
 
         // App SDK versions
         compileSdkVersion = 30
@@ -45,8 +45,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.2'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.3'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
     }
 }
 
