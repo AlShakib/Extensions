@@ -78,8 +78,19 @@ public final class StringExt {
      * @param s String to convert to URI
      * @return A URI from string
      */
+    @NonNull
     public static Uri toUri(final String s) {
         return TextUtils.isEmpty(s) ? Uri.EMPTY : Uri.parse(s);
+    }
+
+    /**
+     * Convert URI to string
+     * @param uri URI to convert to string
+     * @return A string values
+     */
+    @NonNull
+    public static String toString(final Uri uri) {
+        return uri != null ? uri.toString() : EMPTY_STRING;
     }
 
     /**
