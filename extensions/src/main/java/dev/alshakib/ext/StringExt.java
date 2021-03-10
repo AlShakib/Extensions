@@ -40,6 +40,16 @@ public final class StringExt {
     public final static String EMPTY_STRING = "";
 
     /**
+     * Check if string is blank or not
+     *
+     * @param str String to check
+     * @return true if string is blank
+     */
+    public static boolean isBlank(String str) {
+        return str != null && str.trim().isEmpty();
+    }
+
+    /**
      * Check whether the email address is valid or not.
      *
      * @param email Email address to check
