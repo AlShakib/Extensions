@@ -58,9 +58,7 @@ public final class CollectionExt {
         return true;
     }
 
-    @NonNull
-    public static <T> List<? super T> getSafeList(@NonNull List<? super T> list) {
+    public static <T> void removeNulls(@NonNull List<? super T> list) {
         list.removeAll(Collections.singletonList(null));
-        return list;
     }
 }

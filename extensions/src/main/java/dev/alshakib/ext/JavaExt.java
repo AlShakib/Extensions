@@ -26,6 +26,9 @@
 
 package dev.alshakib.ext;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.Nullable;
 
 import static java.util.Objects.requireNonNull;
@@ -53,5 +56,19 @@ public final class JavaExt {
 
     public static boolean isValidFromToIndex(int fromIndex, int toIndex, int length) {
         return fromIndex >= 0 && fromIndex <= toIndex && toIndex <= length;
+    }
+
+    public static <T extends Parcelable> T deepClone(T p) {
+        Parcel parcel = null;
+        try {
+            parcel = Parcel.obtain();
+            parcel.writeParcelable(p, 0);
+            parcel.setDataPosition(0);
+            return parcel.readParcelable(p.getClass().getClassLoader());
+        } finally {
+            if (JavaExt.isNonNull(parcel)) {
+                parcel.recycle();
+            }
+        }
     }
 }
