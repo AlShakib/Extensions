@@ -27,8 +27,11 @@
 package dev.alshakib.ext;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public final class CollectionExt {
     public static <T> boolean isValidIndex(@NonNull Collection<? super T> collection, int index) {
@@ -45,5 +48,19 @@ public final class CollectionExt {
 
     public static <T> boolean isValidFromToIndex(@NonNull Collection<? super T> collection, int fromIndex, int toIndex) {
         return JavaExt.isValidFromToIndex(fromIndex, toIndex, collection.size());
+    }
+
+    public static <T> boolean isEmpty(@Nullable Collection<? super T> collection) {
+        if (JavaExt.isNonNull(collection)) {
+            collection.removeAll(Collections.singletonList(null));
+            return collection.isEmpty();
+        }
+        return true;
+    }
+
+    @NonNull
+    public static <T> List<? super T> getSafeList(@NonNull List<? super T> list) {
+        list.removeAll(Collections.singletonList(null));
+        return list;
     }
 }
