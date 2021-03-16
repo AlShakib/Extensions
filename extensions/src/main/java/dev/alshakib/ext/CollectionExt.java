@@ -31,7 +31,9 @@ import androidx.annotation.Nullable;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public final class CollectionExt {
     public static <T> boolean isValidIndex(@NonNull Collection<? super T> collection, int index) {
@@ -60,6 +62,11 @@ public final class CollectionExt {
 
     public static <T> boolean isNonEmpty(@Nullable Collection<? super T> collection) {
         return !isEmpty(collection);
+    }
+
+    public static <T> boolean hasDuplicates(@NonNull List<? super T> list) {
+        Set<? super T> set = new HashSet<>(list);
+        return set.size() != list.size();
     }
 
     public static <T> void removeNulls(@NonNull List<? super T> list) {
