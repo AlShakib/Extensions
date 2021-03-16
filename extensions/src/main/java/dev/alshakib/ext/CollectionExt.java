@@ -58,6 +58,10 @@ public final class CollectionExt {
         return true;
     }
 
+    public static <T> boolean isNonEmpty(@Nullable Collection<? super T> collection) {
+        return !isEmpty(collection);
+    }
+
     public static <T> void removeNulls(@NonNull List<? super T> list) {
         list.removeAll(Collections.singletonList(null));
     }
