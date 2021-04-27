@@ -45,8 +45,11 @@ public final class NavControllerExt {
      * @param currentDestinationId Current destination id to check whether navigate from here is valid or not
      * @param resId A destination id to navigate to
      */
-    public static void navigate(@NonNull NavController navController, @IdRes int currentDestinationId,
-                                    @IdRes int resId) {
+    public static void navigate(NavController navController, @IdRes int currentDestinationId,
+                                @IdRes int resId) {
+        if (navController == null) {
+            return;
+        }
         NavDestination currentDestination = navController.getCurrentDestination();
         if (currentDestination != null &&
                 currentDestination.getId() == currentDestinationId) {
@@ -62,8 +65,11 @@ public final class NavControllerExt {
      * @param resId A destination id to navigate to
      * @param args Arguments to pass to the destination
      */
-    public static void navigate(@NonNull NavController navController, @IdRes int currentDestinationId,
-                                    @IdRes int resId, @Nullable Bundle args) {
+    public static void navigate(NavController navController, @IdRes int currentDestinationId,
+                                @IdRes int resId, @Nullable Bundle args) {
+        if (navController == null) {
+            return;
+        }
         NavDestination currentDestination = navController.getCurrentDestination();
         if (currentDestination != null &&
                 currentDestination.getId() == currentDestinationId) {
@@ -80,8 +86,11 @@ public final class NavControllerExt {
      * @param args Arguments to pass to the destination
      * @param navOptions Special options for this navigation operation
      */
-    public static void navigate(@NonNull NavController navController, @IdRes int currentDestinationId,
-                                    @IdRes int resId, @Nullable Bundle args, @Nullable NavOptions navOptions) {
+    public static void navigate(NavController navController, @IdRes int currentDestinationId,
+                                @IdRes int resId, @Nullable Bundle args, @Nullable NavOptions navOptions) {
+        if (navController == null) {
+            return;
+        }
         NavDestination currentDestination = navController.getCurrentDestination();
         if (currentDestination != null &&
                 currentDestination.getId() == currentDestinationId) {
@@ -99,9 +108,12 @@ public final class NavControllerExt {
      * @param navOptions Special options for this navigation operation
      * @param navigatorExtras Extras to pass to the Navigator
      */
-    public static void navigate(@NonNull NavController navController, @IdRes int currentDestinationId,
-                                    @IdRes int resId, @Nullable Bundle args, @Nullable NavOptions navOptions,
-                                    @Nullable Navigator.Extras navigatorExtras) {
+    public static void navigate(NavController navController, @IdRes int currentDestinationId,
+                                @IdRes int resId, @Nullable Bundle args, @Nullable NavOptions navOptions,
+                                @Nullable Navigator.Extras navigatorExtras) {
+        if (navController == null) {
+            return;
+        }
         NavDestination currentDestination = navController.getCurrentDestination();
         if (currentDestination != null &&
                 currentDestination.getId() == currentDestinationId) {
@@ -116,8 +128,11 @@ public final class NavControllerExt {
      * @param currentDestinationId Current destination id to check whether navigate from here is valid or not
      * @param directions Directions that describe this navigation operation
      */
-    public static void navigate(@NonNull NavController navController, @IdRes int currentDestinationId,
-                                    @NonNull NavDirections directions) {
+    public static void navigate(NavController navController, @IdRes int currentDestinationId,
+                                NavDirections directions) {
+        if (navController == null || directions == null) {
+            return;
+        }
         NavDestination currentDestination = navController.getCurrentDestination();
         if (currentDestination != null &&
                 currentDestination.getId() == currentDestinationId) {
@@ -133,8 +148,11 @@ public final class NavControllerExt {
      * @param directions Directions that describe this navigation operation
      * @param navOptions Special options for this navigation operation
      */
-    public static void navigate(@NonNull NavController navController, @IdRes int currentDestinationId,
-                                @NonNull NavDirections directions, @Nullable NavOptions navOptions) {
+    public static void navigate(NavController navController, @IdRes int currentDestinationId,
+                                NavDirections directions, @Nullable NavOptions navOptions) {
+        if (navController == null || directions == null) {
+            return;
+        }
         NavDestination currentDestination = navController.getCurrentDestination();
         if (currentDestination != null &&
                 currentDestination.getId() == currentDestinationId) {
@@ -150,8 +168,11 @@ public final class NavControllerExt {
      * @param directions Directions that describe this navigation operation
      * @param navigatorExtras Extras to pass to the Navigator
      */
-    public static void navigate(@NonNull NavController navController, @IdRes int currentDestinationId,
-                                @NonNull NavDirections directions, @NonNull Navigator.Extras navigatorExtras) {
+    public static void navigate(NavController navController, @IdRes int currentDestinationId,
+                                NavDirections directions, @NonNull Navigator.Extras navigatorExtras) {
+        if (navController == null || directions == null) {
+            return;
+        }
         NavDestination currentDestination = navController.getCurrentDestination();
         if (currentDestination != null &&
                 currentDestination.getId() == currentDestinationId) {
@@ -167,8 +188,11 @@ public final class NavControllerExt {
      * @param navController NavController to manage the navigation
      * @param currentDestinationId Current destination id to check whether navigate from here is valid or not
      */
-    public static void navigateUp(@NonNull NavController navController,
-                                      @IdRes int currentDestinationId) {
+    public static void navigateUp(NavController navController,
+                                  @IdRes int currentDestinationId) {
+        if (navController == null) {
+            return;
+        }
         NavDestination currentDestination = navController.getCurrentDestination();
         if (currentDestination != null &&
                 currentDestination.getId() == currentDestinationId) {
