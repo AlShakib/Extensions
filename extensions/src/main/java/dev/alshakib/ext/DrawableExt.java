@@ -53,6 +53,22 @@ public final class DrawableExt {
     }
 
     /**
+     * Get a bitmap from a drawable.
+     *
+     * @param drawable Drawable to convert to a bitmap
+     * @param width Width of the bitmap
+     * @param height Height of the bitmap
+     * @return A bitmap from the drawable
+     */
+    public static Bitmap getBitmap(@NonNull Drawable drawable, int width, int height) {
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, width, height);
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    /**
      * Create a bitmap from a drawable.
      *
      * @param context Context to get resources
@@ -64,6 +80,25 @@ public final class DrawableExt {
         Drawable drawable = ContextCompat.getDrawable(context, drawableId);
         if (drawable != null) {
             return getBitmap(drawable);
+        }
+        return null;
+    }
+
+    /**
+     * Create a bitmap from a drawable.
+     *
+     * @param context Context to get resources
+     * @param drawableId Drawable resource id to get the drawable
+     * @param width Width of the bitmap
+     * @param height Height of the bitmap
+     * @return A bitmap from the drawable
+     */
+    @Nullable
+    public static Bitmap getBitmap(@NonNull Context context, @DrawableRes int drawableId,
+                                   int width, int height) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        if (drawable != null) {
+            return getBitmap(drawable, width, height);
         }
         return null;
     }
