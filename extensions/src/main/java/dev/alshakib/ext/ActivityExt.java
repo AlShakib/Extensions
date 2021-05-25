@@ -59,7 +59,7 @@ public final class ActivityExt {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (inputMethodManager != null) {
-            inputMethodManager.showSoftInput(view, 0);
+            inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 
@@ -77,8 +77,66 @@ public final class ActivityExt {
                 .getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (inputMethodManager != null) {
             inputMethodManager
-                    .hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+    /**
+     * Show soft input area to the user.
+     *
+     * @param view The currently focused {@link View}, which would like to receive
+     * soft keyboard input.
+     */
+    public static void showSoftInput(@NonNull View view, boolean requestFocus) {
+        view.post(() -> {
+            if (requestFocus) {
+                view.requestFocus();
+            }
+            InputMethodManager inputMethodManager = (InputMethodManager) view.getContext()
+                    .getSystemService(Activity.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+    }
+
+    /**
+     * Show soft input area to the user.
+     *
+     * @param view The currently focused {@link View}, which would like to receive
+     * soft keyboard input.
+     */
+    public static void showSoftInput(@NonNull View view) {
+        showSoftInput(view, true);
+    }
+
+    /**
+     * Hide soft input area from the window.
+     *
+     * @param view The currently focused {@link View}.
+     */
+    public static void hideSoftInput(@NonNull View view, boolean clearFocus) {
+        view.post(() -> {
+            if (clearFocus) {
+                view.clearFocus();
+            }
+            InputMethodManager inputMethodManager = (InputMethodManager) view.getContext()
+                    .getSystemService(Activity.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                inputMethodManager
+                        .hideSoftInputFromWindow(view.getWindowToken(),
+                                InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        });
+    }
+
+    /**
+     * Hide soft input area from the window.
+     *
+     * @param view The currently focused {@link View}.
+     */
+    public static void hideSoftInput(@NonNull View view) {
+        hideSoftInput(view, true);
     }
 
     /**
